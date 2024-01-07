@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Added Font Awesome for icons -->
+    <title>Product Information</title>
+    
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .navbar {
+            background-color: #5161ce;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            font-size: 15px;
+            padding: 20px;
+            transition-duration: 0.6s;
+            transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+        }
+
+        .navbar a i {
+            margin-right: 8px; /* Adjust the spacing between icon and text */
+        }
+
+        .navbar a:hover {
+            color: #fff;
+        }
+
+        .navbar .logo {
+            float: left;
+            display: block;
+            color: #fff;
+            padding: 20px;
+            font-size: 18px;
+        }
+
+        .active {
+            color: #5161ce;
+            background-color: transparent;
+            transition: all 0.7s;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            width: 100%;
+        }
+
+        form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+        }
+
+        select,
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            align-self: center;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #video {
+            width: 45%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        canvas {
+            display: block;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            position: absolute;
+            font-size: 12px;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            font-size: 14px;
+            background-color: #f1f1f1;
+            color: #000000;
+            text-align: center;
+        }
+
+        footer a {
+            text-decoration: none;
+            color: inherit;
+            border-bottom: 1px solid;
+        }
+
+        footer a:hover {
+            border-bottom: 1px transparent;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <a href="http://127.0.0.1:5000/" class="logo">IntelliExpire</a>
+        <a href="http://127.0.0.1:5000/product_info"><i class="fas fa-tachometer-alt"></i> Product Information</a>
+        <a href="http://127.0.0.1:5000/product_overview"><i class="far fa-address-book"></i> Product Overview</a>
+        <a href="http://127.0.0.1:5000/login"><i class="far fa-clone"></i> Logout</a>
+    </div>
+
+    <div class="container">
+        <h1>Product Information</h1>
+        <form method="POST" id="productForm">
+            <select id="product_type" name="product_type" required>
+                <option value="Dairy Products">Dairy Products</option>
+                <option value="Bakery Items">Bakery Items</option>
+                <option value="Meat and Poultry">Meat and Poultry</option>
+                <option value="Seafood">Seafood</option>
+                <option value="Canned Goods">Canned Goods</option>
+                <option value="Frozen Foods">Frozen Foods</option>
+                <option value="Eggs">Eggs</option>
+                <option value="Baby Food">Baby Food</option>
+                <option value="Snack and Convenience Foods">Snack and Convenience Foods</option>
+                <option value="Beverages">Beverages</option>
+                <option value="Cereals and Grains">Cereals and Grains</option>
+                <option value="Condiments">Condiments</option>
+                <option value="Medications and Health Products">Medications and Health Products</option>
+                <option value="Canned or Jarred Sauces">Canned or Jarred Sauces</option>
+                <option value="Pet Food">Pet Food</option>
+                <option value="Refrigerated and Prepared Foods">Refrigerated and Prepared Foods</option>
+            </select>
+            <input type="text" id="product_name" name="product_name" placeholder="Enter the product name" required>
+            <input type="text" id="batch_number" name="batch_number" placeholder="Enter the batch number" required>
+            <button type="button" id="submitBtn">Submit</button>
+        </form>
+        <video id="video" width="640" height="480" autoplay></video>
+        <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+    </div>
+
+    <script>
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                var video = document.getElementById('video');
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(function (err) {
+                console.log("An error occurred: " + err);
+            });
+
+        document.getElementById('submitBtn').addEventListener('click', function () {
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            var video = document.getElementById('video');
+            context.drawImage(video, 0, 0, 640, 480);
+
+            // Convert the canvas content to base64 data URL
+            var imageDataUrl = canvas.toDataURL('image/png');
+
+            // Add the image data to a hidden input field in the form
+            var hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'image_data';
+            hiddenInput.value = imageDataUrl;
+            document.getElementById('productForm').appendChild(hiddenInput);
+
+            // Submit the form
+            document.getElementById('productForm').submit();
+        });
+    </script>
+
+    <footer>
+        <a href="http://127.0.0.1:5000/">IntelliExpire</a>
+    </footer>
+
+</body>
+</html>

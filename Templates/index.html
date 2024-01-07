@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>IntelliExpire</title>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css'>
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            min-height: 100vh;
+            font-family: Hack, monospace;
+            background-color: #ffffff ;
+        }
+
+        .intro {
+            color: #000000;
+            text-align: center;
+        }
+
+        .instruction {
+            color: #000000;
+            text-align: left;
+        }
+
+        p {
+            margin: 16px;
+            font-size: 96px;
+            color: #5161ce ;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: all 1s ease-in-out;
+            position: relative;
+        }
+
+        p::before {
+            content: attr(data-item);
+            transition: all 0.8s ease-in-out;
+            color: #d8d8d8;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 0;
+            overflow: hidden;
+        }
+
+        p:hover::before {
+            width: 100%;
+        }
+
+        section {
+            text-align: center;
+        }
+
+        nav {
+            margin: 50px;
+            background: #ffffff;
+            padding: 16px;
+        }
+
+        nav .menuItems {
+            list-style: none;
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        nav .menuItems li a {
+            text-decoration: none;
+            color: #444444;
+            font-size: 24px;
+            font-weight: 530;
+            transition: all 0.5s ease-in-out;
+            position: relative;
+            text-transform: uppercase;
+        }
+
+        nav .menuItems li a::before {
+            content: attr(data-item);
+            transition: 0.5s;
+            color: #ffbb00;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 0;
+            overflow: hidden;
+        }
+
+        nav .menuItems li a:hover::before {
+            width: 100%;
+            transition: all 0.5s ease-in-out;
+        }
+
+        footer {
+            position: absolute;
+            font-size: 12px;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            font-size: 14px;
+            background-color: #ffffff;
+            color: #000000;
+            text-align: center;
+        }
+
+        footer a {
+            text-decoration: none;
+            color: inherit;
+            border-bottom: 1px solid;
+        }
+
+        footer a:hover {
+            border-bottom: 1px transparent;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="intro">Hello welcome to</div>
+    <p data-item='IntelliExpire'>IntelliExpire</p>
+
+    <section>
+        <div class="intro">Introducing "IntelliExpire"  a cutting-edge deep learning system meticulousl</div>
+        <div class="intro">crafted for seamless and intelligent expiry date detection, ensuring timely alerts</div>
+        <div class="intro" style="margin-bottom: 50px;">and heightened efficiency in managing product freshness.</div>
+        
+        <div class="instruction">Instruction:</div>
+        <div class="instruction">1. Sign up if you don't have an account.</div>
+        <div class="instruction">2. Log in.</div>
+        <div class="instruction">3. Save product information by:</div>
+        <div class="instruction">⎆ Choosing the product type.</div>
+        <div class="instruction">⎆ Entering the product name.</div>
+        <div class="instruction">⎆ Entering batch number (type - if there's none).</div>
+        <div class="instruction">⎆ Take a picture of the product's expiry date label.</div>
+        <div class="instruction">4. You can see your product details on the "Product Overview" page.</div>
+        <nav>
+        <ul class="menuItems">
+            <li><a href="http://127.0.0.1:5000/login" data-item='Login'>Login</a></li>
+            <li><a href="http://127.0.0.1:5000/signup" data-item='Signup'>Signup</a></li>
+        </ul>
+        </nav>
+    </section>
+
+    <footer>
+        <a href="http://127.0.0.1:5000/">IntelliExpire</a>
+    </footer>
+
+</body>
+</html>
